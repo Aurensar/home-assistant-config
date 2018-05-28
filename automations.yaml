@@ -1,0 +1,45 @@
+  - alias: Open blinds after sunset
+    initial_state: 'off'
+    trigger:
+      platform: sun
+      event: sunset
+    action:
+      service: scene.turn_on
+      entity_id: scene.19831
+  - alias: Lights on at sunset [TV off]
+    initial_state: 'off'
+    trigger:
+      platform: sun
+      event: sunset
+      offset: '-00:30:00'
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: group.user1
+        state: 'home'
+      - condition: state
+        entity_id: remote.living_room
+        state: 'off'
+    action:
+      service: scene.turn_on
+      entity_id: scene.standard_lights
+  - alias: Lights on at sunset [TV on]
+    initial_state: 'off'
+    trigger:
+      platform: sun
+      event: sunset
+      offset: '-00:30:00'
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: group.user1
+        state: 'home'
+      - condition: template
+        value_template: "{{ states.remote.living_room.current_activity != 'PowerOff' }}"
+    action:
+      service: scene.turn_on
+      entity_id: scene.tv_lights
+
+

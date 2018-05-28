@@ -1,0 +1,63 @@
+  main_tab:
+    name: Summary
+    view: yes
+    entities:
+      - group.user1
+      - group.user2
+      - group.living_room_lights
+      - group.living_room_blinds
+      - group.external_conditions
+      - group.home_entertainment
+  automations_tab:
+    name: Automations
+    view: yes
+    entities:
+      - group.all_automations
+  user1:
+    name: Mark
+    view: no
+    entities: 
+      - device_tracker.marks_iphone_x
+      - device_tracker.marksiphonex
+  user2:
+    name: Mike
+    view: no
+    entities:
+      - device_tracker.androidb102fbdb6892edad
+      - device_tracker.g6
+  living_room_lights:
+    name: Living Room Lights
+    view: no
+    entities:
+      - light.east_corner_strip
+      - light.east_strip
+      - light.east_strip_2
+      - light.northwest_corner_strip
+      - light.northwest_strip_1
+      - light.northwest_strip_2
+  living_room_blinds:
+    name: Living Room Blinds
+    view: no
+    entities:
+      - scene.19831
+      - scene.28541
+      - scene.25394
+      - scene.53808
+  external_conditions:
+    name: External Conditions
+    view: no
+    entities:
+      - sun.sun
+      - sensor.weather_temperature
+      - sensor.weather_humidity
+      - sensor.weather_pressure
+      - sensor.weather_symbol
+  home_entertainment:
+    name: Home Entertainment
+    view: no
+    entities:
+      - sensor.current_harmony_activity
+      - sensor.current_tv_status
+      - sensor.current_tv_activity
+      - media_player.living_room_tv
+

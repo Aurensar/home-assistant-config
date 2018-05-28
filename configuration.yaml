@@ -1,0 +1,169 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 51.35
+  longitude: -0.0334
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 95
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/London
+  # Customization file
+  customize: !include customize.yaml
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  ssl_certificate: /home/homeassistant/dehydrated/certs/flat379.duckdns.org/fullchain.pem
+  ssl_key: /home/homeassistant/dehydrated/certs/flat379.duckdns.org/privkey.pem
+  base_url: flat379.duckdns.org:8123
+  api_password: !secret http_password
+  server_port: 8123
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+  # Secrets are defined in the file secrets.yaml
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+# discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+device_tracker:
+  - platform: bluetooth_tracker
+  - platform: netgear
+    url: http://192.168.0.1:80
+    username: admin
+    password: !secret router_password
+
+# Weather prediction
+sensor:
+  - platform: yr
+    name: Weather
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - windDirection
+      - humidity
+      - fog
+      - cloudiness
+      - lowClouds
+      - mediumClouds
+      - highClouds
+      - dewpointTemperature
+  - platform: template
+    sensors:
+      current_harmony_activity:
+        friendly_name: 'Current Harmony Activity'
+        value_template: '{{ states.remote.living_room.attributes.current_activity }}'
+      current_tv_status:
+        friendly_name: 'Current Living Room TV Status'
+        value_template: '{{ states.media_player.living_room_tv.state }}'
+      current_tv_activity:
+        friendly_name: 'Current Living Room TV Activity'
+        value_template: '{{ states.media_player.living_room_tv.attributes.source }}'
+
+remote:
+  - platform: harmony
+    name: Living Room
+    host: 192.168.0.107
+
+media_player:
+  - platform: plex
+    entity_namespace: 'plex'
+    include_non_clients: true
+    scan_interval: 5
+    show_all_controls: false
+    use_custom_entity_ids: true
+    use_episode_art: true
+    remove_unavailable_clients: true
+    client_remove_interval: 300
+  - platform: webostv
+    name: Living Room TV
+    host: 192.168.0.141
+    customize:
+      sources:
+        - amazonprimevideo
+        - livetv
+        - xboxonex
+        - netflix
+        - youtube
+        - plex
+
+# Text to speech
+tts:
+  - platform: google
+
+scene:
+  - platform: hunterdouglas_powerview
+    address: 192.168.0.126
+  - platform: lifx_cloud
+    token: !secret lifx_token
+
+light:
+  - platform: lifx
+
+# Cloud
+cloud:
+  alexa:
+    filter:
+      include_entities:
+        - scene.19831
+        - scene.28541
+        - scene.25394
+        - scene.53808
+    entity_config:
+      scene.19831:
+        name: Open Blinds
+      scene.28541:
+        name: Blinds Mode 1
+      scene.25394:
+        name: Blinds Mode 2
+      scene.53808:
+        name: Close Blinds
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+zone:
+  - name: Home
+    latitude: 51.378796
+    longitude: -0.099441
+    icon: mdi:home-automation
+  - name: Work
+    latitude: 51.506312
+    longitude: -0.099871
+    icon: mdi:work
+
+ios:

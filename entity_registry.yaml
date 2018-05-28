@@ -1,0 +1,40 @@
+media_player.plex_web_chrome:
+  name:
+  platform: plex
+  unique_id: np91eggjdrspf0bz57ezjv2t
+media_player.chrome:
+  name:
+  platform: plex
+  unique_id: dubm4zwvcpaedy8u46ksmxqr
+light.east_strip:
+  name:
+  platform: lifx
+  unique_id: d0:73:d5:27:03:9b
+light.east_corner_strip:
+  name:
+  platform: lifx
+  unique_id: d0:73:d5:27:10:27
+light.northwest_corner_strip:
+  name:
+  platform: lifx
+  unique_id: d0:73:d5:14:ad:07
+light.northwest_strip_2:
+  name:
+  platform: lifx
+  unique_id: d0:73:d5:27:09:96
+light.east_strip_2:
+  name:
+  platform: lifx
+  unique_id: d0:73:d5:27:15:89
+light.northwest_strip_1:
+  name:
+  platform: lifx
+  unique_id: d0:73:d5:26:ff:4f
+sensor.marks_iphone_x_battery_level:
+  name:
+  platform: ios
+  unique_id: level_marks_iphone_x
+sensor.marks_iphone_x_battery_state:
+  name:
+  platform: ios
+  unique_id: state_marks_iphone_x
