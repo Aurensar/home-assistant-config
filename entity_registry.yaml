@@ -38,3 +38,7 @@ sensor.marks_iphone_x_battery_state:
   name:
   platform: ios
   unique_id: state_marks_iphone_x
+light.kitchen_floor_lamp:
+  name:
+  platform: lifx
+  unique_id: d0:73:d5:01:db:cf
