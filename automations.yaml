@@ -66,12 +66,15 @@
     action:
       service: light.turn_off
       entity_id: light.aurora_one
-  - alias: WHEN TV turned off THEN Turn on Aurora One
+  - alias: WHEN TV turned off AND it is before 2230 THEN Turn on Aurora One
     initial_state: true
     trigger:
       platform: state
       entity_id: remote.living_room
       to: 'off'
+    condition:
+      condition: time
+      before: '22:30:00'
     action:
       service: light.turn_on
       entity_id: light.aurora_one
