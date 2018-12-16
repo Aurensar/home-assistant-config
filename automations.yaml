@@ -1,4 +1,4 @@
-  - alias: WHEN Sun elevation is below 5 degrees THEN Open all living room blinds
+  - alias: WHEN Sun falls below 5 degrees THEN Open all living room blinds
     initial_state: true
     trigger:
       platform: numeric_state
@@ -8,7 +8,7 @@
     action:
       service: scene.turn_on
       entity_id: scene.19831
-  - alias: WHEN Sun elevation is below 5 degrees AND Mark is home AND TV is off THEN Turn living room lights on standard
+  - alias: WHEN Sun falls below 5 degrees AND Mark is home AND TV is off THEN Turn living room lights on standard
     initial_state: true
     trigger:
       platform: numeric_state
@@ -27,7 +27,7 @@
     action:
       service: scene.turn_on
       entity_id: scene.standard_lights
-  - alias: WHEN Sun elevation is below 5 degrees AND Mark is home AND TV is on THEN Turn living room lights on in TV mode
+  - alias: WHEN Sun falls below 5 degrees AND Mark is home AND TV is on THEN Turn living room lights on in TV mode
     initial_state: true
     trigger:
       platform: numeric_state
@@ -45,7 +45,7 @@
     action:
       service: scene.turn_on
       entity_id: scene.tv_lights
-  - alias: WHEN TV turned off AND Sun elevation is below 5 degrees THEN Turn living room lights on standard
+  - alias: WHEN TV turned off AND Sun is below 5 degrees THEN Turn living room lights on standard
     initial_state: true
     trigger:
       platform: state
