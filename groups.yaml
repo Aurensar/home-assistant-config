@@ -35,13 +35,16 @@
       - light.northwest_corner_strip
       - light.northwest_strip_1
       - light.northwest_strip_2
+      - light.aurora_one
   living_room_blinds:
     name: Living Room Blinds
     view: no
     entities:
       - scene.19831
-      - scene.28541
       - scene.25394
+      - scene.10393
+      - scene.22215
+      - scene.22976
       - scene.53808
   external_conditions:
     name: External Conditions

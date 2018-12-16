@@ -1,0 +1,4 @@
+  media_player.plex_plex_nykj1mb38arlik9yzdjmnldz:
+    friendly_name: "LG webOS Plex Client"
+  group.all_automations:
+    hidden: false

@@ -1,17 +1,20 @@
-  - alias: Open blinds after sunset
+  - alias: WHEN Sun elevation is below 5 degrees THEN Open all living room blinds
     initial_state: true
     trigger:
-      platform: sun
-      event: sunset
+      platform: numeric_state
+      entity_id: sun.sun
+      value_template: "{{ state.attributes.elevation }}"
+      below: 5
     action:
       service: scene.turn_on
       entity_id: scene.19831
-  - alias: Lights on at sunset [TV off]
+  - alias: WHEN Sun elevation is below 5 degrees AND Mark is home AND TV is off THEN Turn living room lights on standard
     initial_state: true
     trigger:
-      platform: sun
-      event: sunset
-      offset: '-00:30:00'
+      platform: numeric_state
+      entity_id: sun.sun
+      value_template: "{{ state.attributes.elevation }}"
+      below: 5
     condition:
       condition: and
       conditions:
@@ -24,12 +27,13 @@
     action:
       service: scene.turn_on
       entity_id: scene.standard_lights
-  - alias: Lights on at sunset [TV on]
+  - alias: WHEN Sun elevation is below 5 degrees AND Mark is home AND TV is on THEN Turn living room lights on in TV mode
     initial_state: true
     trigger:
-      platform: sun
-      event: sunset
-      offset: '-00:30:00'
+      platform: numeric_state
+      entity_id: sun.sun
+      value_template: "{{ state.attributes.elevation }}"
+      below: 5
     condition:
       condition: and
       conditions:
@@ -41,5 +45,90 @@
     action:
       service: scene.turn_on
       entity_id: scene.tv_lights
-
-
+  - alias: WHEN TV turned off AND Sun elevation is below 5 degrees THEN Turn living room lights on standard
+    initial_state: true
+    trigger:
+      platform: state
+      entity_id: remote.living_room
+      to: 'off'
+    condition:
+      condition: template
+      value_template: "{{ states.sun.sun.attributes.elevation  | int < 5 }}"
+    action:
+      service: scene.turn_on
+      entity_id: scene.standard_lights
+  - alias: WHEN TV turned on THEN Turn off Aurora One
+    initial_state: true
+    trigger:
+      platform: state
+      entity_id: remote.living_room
+      from: 'off'
+    action:
+      service: light.turn_off
+      entity_id: light.aurora_one
+  - alias: WHEN TV turned off THEN Turn on Aurora One
+    initial_state: true
+    trigger:
+      platform: state
+      entity_id: remote.living_room
+      to: 'off'
+    action:
+      service: light.turn_on
+      entity_id: light.aurora_one
+  - alias: WHEN Mark arrives home AND Sun elevation is below 5 degrees THEN Turn living room lights on standard
+    initial_state: true
+    trigger:
+      platform: state
+      entity_id: group.user1
+      from: 'not_home'
+      to: 'home'
+    condition:
+      condition: template
+      value_template: "{{ states.sun.sun.attributes.elevation  | int < 5 }}"
+    action:
+      service: scene.turn_on
+      entity_id: scene.standard_lights
+  - alias: WHEN it is 2230 THEN Turn off Aurora One
+    initial_state: true
+    trigger:
+      platform: time
+      at: '22:30:00'
+    action:
+      service: light.turn_off
+      entity_id: light.aurora_one
+  - alias: WHEN Mark arrives home THEN Turn on Aurora One
+    initial_state: true
+    trigger:
+      platform: state
+      entity_id: group.user1
+      from: 'not_home'
+      to: 'home'
+    action:
+      service: light.turn_on
+      entity_id: light.aurora_one
+  - alias: WHEN it is 0900 AND it is a weekend AND Mark is home THEN Turn on Aurora One
+    initial_state: true
+    trigger:
+      platform: time
+      at: '09:00:00'
+    condition:
+    - condition: time
+      weekday:
+      - sat
+      - sun
+    - condition: state
+      entity_id: group.user1
+      state: 'home'
+    action:
+      service: light.turn_on
+      entity_id: light.aurora_one
+  - alias: WHEN Mark leaves the flat THEN turn off all living room lights
+    initial_state: true
+    trigger:
+      platform: state
+      entity_id: group.user1
+      from: 'home'
+      to: 'not_home'
+    action:
+      service: light.turn_off
+      entity_id: light.aurora_one

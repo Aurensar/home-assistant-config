@@ -25,6 +25,10 @@ http:
   base_url: flat379.duckdns.org:8123
   api_password: !secret http_password
   server_port: 8123
+  cors_allowed_origins:
+    - https://reformedreality.com
+    - http://reformedreality.com
+
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   # base_url: example.duckdns.org:8123
   # Secrets are defined in the file secrets.yaml
@@ -96,7 +100,7 @@ sensor:
 remote:
   - platform: harmony
     name: Living Room
-    host: 192.168.0.107
+    host: 192.168.0.31
 
 media_player:
   - platform: plex
@@ -110,7 +114,7 @@ media_player:
     client_remove_interval: 300
   - platform: webostv
     name: Living Room TV
-    host: 192.168.0.141
+    host: 192.168.0.20
     customize:
       sources:
         - amazonprimevideo
@@ -126,12 +130,21 @@ tts:
 
 scene:
   - platform: hunterdouglas_powerview
-    address: 192.168.0.126
+    address: 192.168.0.32
   - platform: lifx_cloud
     token: !secret lifx_token
+  - name: PC Gaming
+    entities:
+      remote.living_room:
+        state: 'on'
+        activity: 'Computer Gaming'
 
 light:
   - platform: lifx
+  - platform: nanoleaf_aurora
+    host: 192.168.0.40
+    token: !secret aurora_one_token
+    name: 'Aurora One'
 
 # Cloud
 cloud:
@@ -139,16 +152,22 @@ cloud:
     filter:
       include_entities:
         - scene.19831
-        - scene.28541
         - scene.25394
+        - scene.10393
+        - scene.22215
+        - scene.22976
         - scene.53808
     entity_config:
       scene.19831:
         name: Open Blinds
-      scene.28541:
-        name: Blinds Mode 1
       scene.25394:
         name: Blinds Mode 2
+      scene.10393:
+        name: Blinds Mode 3
+      scene.22215:
+        name: Blinds Mode 4
+      scene.22976:
+        name: Blinds Mode 5
       scene.53808:
         name: Close Blinds
 
