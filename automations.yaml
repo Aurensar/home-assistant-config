@@ -66,6 +66,18 @@
     action:
       service: light.turn_off
       entity_id: light.aurora_one
+  - alias: WHEN TV turned on AMD Sun is below 5 degrees THEN Turn on lights in TV mode
+    initial_state: true
+    trigger:
+      platform: state
+      entity_id: remote.living_room
+      from: 'off'
+    condition:
+      condition: template
+      value_template: "{{ states.sun.sun.attributes.elevation  | int < 5 }}"
+    action:
+      service: scene.turn_on
+      entity_id: scene.tv_lights
   - alias: WHEN TV turned off AND it is before 2230 THEN Turn on Aurora One
     initial_state: true
     trigger:
