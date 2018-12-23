@@ -146,4 +146,4 @@
       to: 'not_home'
     action:
       service: light.turn_off
-      entity_id: light.aurora_one
+      entity_id: group.living_room_lights
