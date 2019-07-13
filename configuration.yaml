@@ -102,6 +102,10 @@ remote:
     name: Living Room
     host: 192.168.0.31
 
+nest:
+  client_id: 7c397d72-f64e-496f-ae4e-5bb5b61e2473
+  client_secret: OwLggUgyvbS6KWMVCTVQQrenA
+
 media_player:
   - platform: plex
     entity_namespace: 'plex'
@@ -126,7 +130,8 @@ media_player:
 
 # Text to speech
 tts:
-  - platform: google
+  - platform: google_translate
+    service_name: google_say
 
 scene:
   - platform: hunterdouglas_powerview
@@ -141,7 +146,7 @@ scene:
 
 light:
   - platform: lifx
-  - platform: nanoleaf_aurora
+  - platform: nanoleaf
     host: 192.168.0.40
     token: !secret aurora_one_token
     name: 'Aurora One'
@@ -151,22 +156,28 @@ cloud:
   alexa:
     filter:
       include_entities:
-        - scene.12911
         - scene.14258
-        - scene.24409
-        - scene.45161
-        - scene.59041
+        - scene.52048
+        - scene.59816
+        - scene.37098
+        - scene.46535
+        - scene.64726
+        - scene.12911
     entity_config:
-      scene.12911:
-        name: Close Blinds
       scene.14258:
         name: Open Blinds
-      scene.24409:
-        name: Northwest Corner Shade
-      scene.45161:
-        name: Northwest Guest Mode
-      scene.59041:
-        name: East Corner Shade
+      scene.52048:
+        name: Blinds Mode 2
+      scene.59816:
+        name: Blinds Mode 3
+      scene.37098:
+        name: Blinds Mode 4
+      scene.46535:
+        name: Blinds Mode 5
+      scene.64726:
+        name: Blinds Mode 6
+      scene.12911:
+        name: Close Blinds
 
 group: !include groups.yaml
 automation: !include automations.yaml

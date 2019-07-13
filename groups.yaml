@@ -40,12 +40,13 @@
     name: Living Room Blinds
     view: no
     entities:
-      - scene.19831
-      - scene.25394
-      - scene.10393
-      - scene.22215
-      - scene.22976
-      - scene.53808
+      - scene.14258
+      - scene.52048
+      - scene.59816
+      - scene.37098
+      - scene.46535
+      - scene.64726
+      - scene.12911
   external_conditions:
     name: External Conditions
     view: no

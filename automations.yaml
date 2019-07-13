@@ -1,20 +1,20 @@
-  - alias: WHEN Sun falls below 5 degrees THEN Open all living room blinds
+  - alias: WHEN Sun falls below 2 degrees THEN Open all living room blinds
     initial_state: true
     trigger:
       platform: numeric_state
       entity_id: sun.sun
       value_template: "{{ state.attributes.elevation }}"
-      below: 5
+      below: 2
     action:
       service: scene.turn_on
       entity_id: scene.14258
-  - alias: WHEN Sun falls below 5 degrees AND Mark is home AND TV is off THEN Turn living room lights on standard
+  - alias: WHEN Sun falls below 2 degrees AND Mark is home AND TV is off THEN Turn living room lights on standard
     initial_state: true
     trigger:
       platform: numeric_state
       entity_id: sun.sun
       value_template: "{{ state.attributes.elevation }}"
-      below: 5
+      below: 2
     condition:
       condition: and
       conditions:
@@ -27,13 +27,13 @@
     action:
       service: scene.turn_on
       entity_id: scene.standard_lights
-  - alias: WHEN Sun falls below 5 degrees AND Mark is home AND TV is on THEN Turn living room lights on in TV mode
+  - alias: WHEN Sun falls below 2 degrees AND Mark is home AND TV is on THEN Turn living room lights on in TV mode
     initial_state: true
     trigger:
       platform: numeric_state
       entity_id: sun.sun
       value_template: "{{ state.attributes.elevation }}"
-      below: 5
+      below: 2
     condition:
       condition: and
       conditions:
@@ -45,7 +45,7 @@
     action:
       service: scene.turn_on
       entity_id: scene.tv_lights
-  - alias: WHEN TV turned off AND Sun is below 5 degrees THEN Turn living room lights on standard
+  - alias: WHEN TV turned off AND Sun is below 2 degrees THEN Turn living room lights on standard
     initial_state: true
     trigger:
       platform: state
@@ -53,7 +53,7 @@
       to: 'off'
     condition:
       condition: template
-      value_template: "{{ states.sun.sun.attributes.elevation  | int < 5 }}"
+      value_template: "{{ states.sun.sun.attributes.elevation  | int < 2 }}"
     action:
       service: scene.turn_on
       entity_id: scene.standard_lights
@@ -66,7 +66,7 @@
     action:
       service: light.turn_off
       entity_id: light.aurora_one
-  - alias: WHEN TV turned on AMD Sun is below 5 degrees THEN Turn on lights in TV mode
+  - alias: WHEN TV turned on AMD Sun is below 2 degrees THEN Turn on lights in TV mode
     initial_state: true
     trigger:
       platform: state
@@ -74,7 +74,7 @@
       from: 'off'
     condition:
       condition: template
-      value_template: "{{ states.sun.sun.attributes.elevation  | int < 5 }}"
+      value_template: "{{ states.sun.sun.attributes.elevation  | int < 2 }}"
     action:
       service: scene.turn_on
       entity_id: scene.tv_lights
@@ -90,7 +90,7 @@
     action:
       service: light.turn_on
       entity_id: light.aurora_one
-  - alias: WHEN Mark arrives AND Sun is below 5 degrees THEN Turn living room lights on standard
+  - alias: WHEN Mark arrives AND Sun is below 2 degrees THEN Turn living room lights on standard
     initial_state: true
     trigger:
       platform: state
@@ -99,7 +99,7 @@
       to: 'home'
     condition:
       condition: template
-      value_template: "{{ states.sun.sun.attributes.elevation  | int < 5 }}"
+      value_template: "{{ states.sun.sun.attributes.elevation  | int < 2 }}"
     action:
       service: scene.turn_on
       entity_id: scene.standard_lights
