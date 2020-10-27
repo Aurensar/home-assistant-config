@@ -1,13 +1,13 @@
-  - alias: WHEN Sun falls below 2 degrees THEN Open all living room blinds
+  - alias: WHEN Sun falls below 1 degrees THEN Open all living room blinds
     initial_state: true
     trigger:
       platform: numeric_state
       entity_id: sun.sun
       value_template: "{{ state.attributes.elevation }}"
-      below: 2
+      below: 1
     action:
       service: scene.turn_on
-      entity_id: scene.14258
+      entity_id: scene.30633
   - alias: WHEN Sun falls below 2 degrees AND Mark is home AND TV is off THEN Turn living room lights on standard
     initial_state: true
     trigger:
@@ -26,7 +26,7 @@
         state: 'off'
     action:
       service: scene.turn_on
-      entity_id: scene.standard_lights
+      entity_id: scene.april_2019
   - alias: WHEN Sun falls below 2 degrees AND Mark is home AND TV is on THEN Turn living room lights on in TV mode
     initial_state: true
     trigger:
@@ -56,7 +56,7 @@
       value_template: "{{ states.sun.sun.attributes.elevation  | int < 2 }}"
     action:
       service: scene.turn_on
-      entity_id: scene.standard_lights
+      entity_id: scene.april_2019
   - alias: WHEN TV turned on THEN Turn off Aurora One
     initial_state: true
     trigger:
@@ -102,7 +102,7 @@
       value_template: "{{ states.sun.sun.attributes.elevation  | int < 2 }}"
     action:
       service: scene.turn_on
-      entity_id: scene.standard_lights
+      entity_id: scene.april_2019
   - alias: WHEN it is 2230 THEN Turn off Aurora One
     initial_state: true
     trigger:

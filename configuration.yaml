@@ -23,11 +23,19 @@ http:
   ssl_certificate: /home/homeassistant/dehydrated/certs/flat379.duckdns.org/fullchain.pem
   ssl_key: /home/homeassistant/dehydrated/certs/flat379.duckdns.org/privkey.pem
   base_url: flat379.duckdns.org:8123
-  api_password: !secret http_password
   server_port: 8123
   cors_allowed_origins:
     - https://reformedreality.com
     - http://reformedreality.com
+
+mobile_app:
+
+auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - 192.168.0.0/24
+        - 127.0.0.1
 
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   # base_url: example.duckdns.org:8123
@@ -63,7 +71,8 @@ sun:
 device_tracker:
   - platform: bluetooth_tracker
   - platform: netgear
-    url: http://192.168.0.1:80
+    host: 192.168.0.1
+    port: 80
     username: admin
     password: !secret router_password
 
@@ -109,7 +118,6 @@ nest:
 media_player:
   - platform: plex
     entity_namespace: 'plex'
-    include_non_clients: true
     scan_interval: 5
     show_all_controls: false
     use_custom_entity_ids: true
@@ -156,7 +164,8 @@ cloud:
   alexa:
     filter:
       include_entities:
-        - scene.14258
+        - scene.30633
+        - scene.6961
         - scene.52048
         - scene.59816
         - scene.37098
@@ -164,8 +173,10 @@ cloud:
         - scene.64726
         - scene.12911
     entity_config:
-      scene.14258:
+      scene.30633:
         name: Open Blinds
+      scene.6961:
+        name: Blinds Mode 1
       scene.52048:
         name: Blinds Mode 2
       scene.59816:
@@ -189,8 +200,8 @@ zone:
     longitude: -0.099441
     icon: mdi:home-automation
   - name: Work
-    latitude: 51.506312
-    longitude: -0.099871
+    latitude: 51.50328
+    longitude: -0.11631
     icon: mdi:work
 
 ios:

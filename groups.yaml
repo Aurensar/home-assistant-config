@@ -17,8 +17,7 @@
     name: Mark
     view: no
     entities: 
-      - device_tracker.marks_iphone_x
-      - device_tracker.marksiphonex
+      - device_tracker.iphone_13
   user2:
     name: Mike
     view: no
@@ -40,13 +39,13 @@
     name: Living Room Blinds
     view: no
     entities:
-      - scene.14258
       - scene.52048
       - scene.59816
       - scene.37098
       - scene.46535
       - scene.64726
       - scene.12911
+      - scene.6961
   external_conditions:
     name: External Conditions
     view: no
